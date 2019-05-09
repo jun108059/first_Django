@@ -1,7 +1,9 @@
-from django.shortcuts import get_object_or_404, render
+from django.http import Http404
+from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
+from django.template import loader
 
 from .models import Question
 
@@ -22,11 +24,12 @@ def index(request):
 
 def detail(request, question_id):
     # 404 에러 일으키기
-    # get_object_or_404()함수는 Django 모델을 첫번째 인자로 받고
-    # 몇개의 키워드 인수를 모델 관리자의 get() 함수에 넘깁니다.
-    # 만약 객체가 존재하지 않을 경우, Http404 예외가 발생합니다.
-    question = get_object_or_404(Question, pk=question_id)
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
     return render(request, 'polls/detail.html', {'question': question})
+    # return HttpResponse("You're looking at question %s." % question_id)
 
 
 def results(request, question_id):
