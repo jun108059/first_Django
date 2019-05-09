@@ -11,8 +11,10 @@ class Question(models.Model):
     def __str__(self):
         return self.question_text
 
+    # 날짜가 과거에 있을 때에만 True 를 반환하도록 메소드를 수정(19.05.09)
     def was_published_recently(self):
-        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
 
 class Choice(models.Model):
