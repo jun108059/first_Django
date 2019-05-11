@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YoungJun_base</title>
+</head>
+<body>
+{% load static %}
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <img src="{% static 'images/sitelogo.png' %}" alt="Logo">
+    {% block content %}{% endblock %}
+</body>
+</html>
+</body>
+</html>
