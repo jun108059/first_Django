@@ -1,6 +1,16 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
-# Create your views here.
-def index(request):
-    return HttpResponse("Hello YoungJun! Let's start making News 190512")
+from .models import Article
+
+
+def year_archive(request, year):
+    a_list = Article.objects.filter(pub_date__year=year)
+    context = {'year': year, 'article_list': a_list}
+    return render(request, 'news/year_archive.html', context)
+
+
+def month_archive(request, year, month):
+    a_list = Article.objects.filter(pub_date__month=month)
+    context = {'year': year, 'month': month, 'article_list': a_list}
+    return render(request, 'news/month_archive.html', context)
+
