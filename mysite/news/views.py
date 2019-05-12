@@ -14,3 +14,8 @@ def month_archive(request, year, month):
     context = {'year': year, 'month': month, 'article_list': a_list}
     return render(request, 'news/month_archive.html', context)
 
+
+def article_detail(request, year, month, pk):
+    a_list = Article.objects.filter(id = pk)
+    context = {'year': year, 'month': month, 'article_list': a_list}
+    return render(request, 'news/detail_archive.html', context)
